@@ -3,13 +3,102 @@ import string
 
 from test_framework import generic_test
 from collections import deque, namedtuple
-class Node:
-    def __init__():
-        self.val = ""
-        self.d = 0
 
 def transform_string(D: Set[str], s: str, t: str) -> int:
     # TODO - you fill in here.
+    if s not in D or t not in D:
+        return -1
+
+    StringWithDistance = namedtuple("StringWithDistance", ("candadate_string", "distance"))
+    to_visit = deque([StringWithDistance(s, 0)])
+    D.remove(s)
+    while to_visit:
+        curr = to_visit.popleft()
+        if curr.candadate_string == t:
+            return curr.distance
+        for i in range(len(curr.candadate_string)):
+            for c in string.ascii_lowercase:
+                next_word = curr.candadate_string[:i] + c + curr.candadate_string[i+1:] # slicing doesn't throw error with out-of-range slice
+                if next_word in D:
+                    D.remove(next_word)
+                    to_visit.append(StringWithDistance(next_word, curr.distance + 1))
+        
+    return -1
+
+    """
+    if s not in D or t not in D:
+        return -1
+    g = {}
+    for w in D:
+        if w not in g:
+            g[w] = []
+        for new_word in D:
+            if new_word != w and len(new_word) == len(w):
+                count = 0
+                for i in range(len(w)):
+                    if w[i] == new_word[i]:
+                        count += 1
+                if count == len(w) - 1:
+                    g[w].append(new_word)
+    
+
+    to_visit = deque()
+    to_visit.append(s)
+    visited = set()
+    visited.add(s)
+    path = 0
+    while to_visit:
+        curr = to_visit.popleft()
+        if curr == t:
+            return path
+        for neighbor in g[curr]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                to_visit.append(neighbor)
+                path += 1 # this records all the paths tried before reaching t, not the shortest path
+
+    
+    return 0
+   """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    """
     if s not in D or t not in D:
         return -1
     StringWithDistance = namedtuple("StringWithDistance", ("candidate_string", "distance"))
@@ -65,6 +154,7 @@ def transform_string(D: Set[str], s: str, t: str) -> int:
     return 0
     '''
 
+"""
 
 if __name__ == '__main__':
     exit(
