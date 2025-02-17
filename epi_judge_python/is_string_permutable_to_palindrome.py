@@ -1,9 +1,18 @@
 from test_framework import generic_test
 
-
+from collections import Counter
 def can_form_palindrome(s: str) -> bool:
     # TODO - you fill in here.
-    return True
+    word_map = Counter(s)
+    odd_count = 0
+    for v in word_map.values():
+        if v % 2 != 0:
+            odd_count += 1
+    
+    if len(s) % 2 == 0:
+        return odd_count == 0
+    else:
+        return odd_count == 1
 
 
 if __name__ == '__main__':

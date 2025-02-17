@@ -11,11 +11,27 @@ WHITE, BLACK = range(2)
 
 Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
+def helper(maze: List[List[int]], c: Coordinate, e: Coordinate, curr_list: List[Coordinate]) -> bool:
+    if c.x < 0 or c.x >= len(maze) or c.y < 0 or c.y >= len(maze[0]) or maze[c.x][c.y] == BLACK:
+        return False
+    maze[c.x][c.y] = BLACK
+    curr_list.append(c)
+    if c == e:
+        return True
+    for new_c in [Coordinate(c.x+1, c.y), Coordinate(c.x-1, c.y), Coordinate(c.x, c.y+1), Coordinate(c.x, c.y-1)]:
+        if helper(maze, new_c, e, curr_list):
+            return True
+    curr_list.pop()
+    return False
 
 def search_maze(maze: List[List[int]], s: Coordinate,
                 e: Coordinate) -> List[Coordinate]:
     # TODO - you fill in here.
-    return []
+    result = []
+    helper(maze, s, e, result)
+
+
+    return result
 
 
 def path_element_is_feasible(maze, prev, cur):

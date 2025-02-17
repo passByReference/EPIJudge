@@ -5,10 +5,15 @@ from test_framework.test_failure import TestFailure
 class Queue:
     def __init__(self, capacity: int) -> None:
         # TODO - you fill in here.
+        self.data = [0] * capacity
+        self.head = 0
+        self.tail = 0
+        self.size = 0
         return
 
     def enqueue(self, x: int) -> None:
         # TODO - you fill in here.
+        
         return
 
     def dequeue(self) -> int:
